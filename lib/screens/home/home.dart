@@ -29,14 +29,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
         appBar: AppBar(
           title: General.buildTxt(txt: "NY Times Most Popular"),
-          // leading: IconButton(
-          //     icon: Icon(Icons.toc_sharp),
-          //     onPressed: () {
-          //       _articleBloc.getArticles();
-          //     }),
         ),
         body: Consumer<ArticleBloc>(builder: (BuildContext context, state, __) {
-          if (state.hasData) {
+          if (state.error != null) {
+            return Center(child: General.buildTxt(txt: state.error));
+          } else if (state.hasData) {
             return Container(
               child: ListView.builder(
                 itemCount: 10,
